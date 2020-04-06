@@ -21,25 +21,25 @@ public class ToDOserviceController {
         todoList.add(knife);
         todoList.add(spoon);
         todoList.add(fork);
-        data.put("data",todoList);
+        data.put("data", todoList);
     }
 
     @GetMapping
     public ResponseEntity<Object> getProduct() {
-        return new ResponseEntity<>(data,HttpStatus.OK);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Object> createProduct(@RequestBody ToDO todo) {
         todoList.add(todo);
         data.put("data", todoList);
-        return new ResponseEntity<>(data,HttpStatus.OK);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @PutMapping(value = "{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody ToDO todo) {
-        for (ToDO t: todoList) {
-            if(t.getId().equals(id)) {
+        for (ToDO t : todoList) {
+            if (t.getId().equals(id)) {
                 todoList.remove(t);
                 todoList.add(todo);
                 data.put("data", todoList);
@@ -58,9 +58,9 @@ public class ToDOserviceController {
 
     @RequestMapping(value = "find/{id}")
     public ResponseEntity<Object> findProduct(@PathVariable("id") String id) {
-        for (ToDO t: todoList){
-            if(t.getId().equals(id)) {
-                return new ResponseEntity<>(t,HttpStatus.OK);
+        for (ToDO t : todoList) {
+            if (t.getId().equals(id)) {
+                return new ResponseEntity<>(t, HttpStatus.OK);
             }
         }
         return new ResponseEntity<>("This todo doesn't exist", HttpStatus.BAD_REQUEST);
